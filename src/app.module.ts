@@ -25,9 +25,9 @@ import { UserModule } from './user/user.module';
             password: process.env.POSTGRES_PASSWORD,
             autoLoadEntities: true,
             synchronize: true,
-            // ssl: {
-            //     rejectUnauthorized: true,
-            // },
+            ssl: {
+                rejectUnauthorized: true,
+            },
         }),
         TypeOrmModule.forFeature([StockEntity, SaleEntity, InvoiceEntity]),
         ProductsModule,
