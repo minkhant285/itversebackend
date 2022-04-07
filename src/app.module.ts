@@ -24,6 +24,7 @@ import { TransitionModule } from './transition/transition.module';
             password: process.env.POSTGRES_PASSWORD,
             autoLoadEntities: true,
             synchronize: true,
+            ssl: true,
         }),
         TypeOrmModule.forFeature([StockEntity, SaleEntity, InvoiceEntity]),
         ProductsModule,
@@ -32,4 +33,4 @@ import { TransitionModule } from './transition/transition.module';
     controllers: [AppController],
     providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
