@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InvoiceEntity } from './products/entities/invoice.entity';
@@ -15,6 +17,9 @@ import { UserModule } from './user/user.module';
         ConfigModule.forRoot({
             envFilePath: ['.env.development', '.env.production'],
             isGlobal: true,
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '../src', 'assets/img/itverse_photos'),
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
