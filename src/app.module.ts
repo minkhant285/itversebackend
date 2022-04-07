@@ -11,6 +11,10 @@ import { StockEntity } from './products/entities/stock.entity';
 import { ProductsModule } from './products/products.module';
 import { TransitionModule } from './transition/transition.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { UserService } from './user/user.service';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -38,8 +42,9 @@ import { UserModule } from './user/user.module';
         ProductsModule,
         TransitionModule,
         UserModule,
+        AuthModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, AuthService, UserService],
 })
 export class AppModule { }
