@@ -1,4 +1,4 @@
-import { Stocks } from 'src/models/sale.entity';
+import { Stocks } from 'src/products/entities/sale.entity';
 
 export class SaleDto {
     sale_id: string;

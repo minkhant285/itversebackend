@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InvoiceEntity } from 'src/models/invoice.entity';
-import { SaleEntity } from 'src/models/sale.entity';
+import { InvoiceEntity } from 'src/products/entities/invoice.entity';
+import { SaleEntity } from 'src/products/entities/sale.entity';
 import { Repository } from 'typeorm';
 import { InvoiceDto, SaleDto } from './dto/create-transition.dto';
 import {
@@ -16,7 +16,7 @@ export class TransitionService {
         private readonly transitionRepository: Repository<SaleEntity>,
         @InjectRepository(InvoiceEntity)
         private readonly invoiceRepository: Repository<InvoiceEntity>,
-    ) {}
+    ) { }
 
     async create(transitionDto: SaleDto) {
         console.log(transitionDto);

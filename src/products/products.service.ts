@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StockEntity } from 'src/models/stock.entity';
 import { getConnection, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { StockEntity } from './entities/stock.entity';
 
 @Injectable()
 export class ProductsService {
@@ -16,10 +16,15 @@ export class ProductsService {
         return await this.stockRepository.save(createProductDto);
     }
 
-    async findAll(): Promise<any> {
-        return await this.stockRepository.find({
-            take: 10,
-        });
+    async findAll(page = 1, take = 38): Promise<any> {
+        const d = await this.stockRepository.query(`
+            select * from stock limit ${take} offset ${take * (page - 1)}
+        `);
+        return d;
+    }
+
+    async countAll(): Promise<number> {
+        return await this.stockRepository.count();
     }
 
     async findOne(id: string): Promise<any> {
@@ -47,10 +52,13 @@ export class ProductsService {
         return await this.stockRepository
             .createQueryBuilder()
             .select()
-            .where('item_name ILIKE :searchQuery', {
-                searchQuery: `%${searchQuery}%`,
+            .where('to_tsvector(item_name) @@ to_tsquery(:query)', {
+                query: searchQuery,
             })
             .getMany();
+        // .where('item_name ILIKE :searchQuery', {
+        //     searchQuery: `%${searchQuery}%`,
+        // })
         // .orWhere('sku ILIKE :searchQuery', {
         //     searchQuery: `%${searchQuery}%`,
         // })

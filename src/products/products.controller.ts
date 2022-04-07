@@ -20,9 +20,15 @@ export class ProductsController {
         return this.productsService.create(createProductDto);
     }
 
+    @Get('/page/:pagenumber')
+    findAll(@Param('pagenumber') pnum: number) {
+        console.log(pnum);
+        return this.productsService.findAll(pnum);
+    }
+
     @Get()
-    findAll() {
-        return this.productsService.findAll();
+    countProducts() {
+        return this.productsService.countAll();
     }
 
     @Get(':id')
