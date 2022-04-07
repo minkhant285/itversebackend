@@ -10,14 +10,16 @@ export class ProductsService {
     constructor(
         @InjectRepository(StockEntity)
         private readonly stockRepository: Repository<StockEntity>,
-    ) {}
+    ) { }
 
     async create(createProductDto: CreateProductDto): Promise<any> {
         return await this.stockRepository.save(createProductDto);
     }
 
     async findAll(): Promise<any> {
-        return await this.stockRepository.find();
+        return await this.stockRepository.find({
+            take: 10,
+        });
     }
 
     async findOne(id: string): Promise<any> {
