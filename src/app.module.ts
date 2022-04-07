@@ -26,7 +26,7 @@ import { UserModule } from './user/user.module';
             autoLoadEntities: true,
             synchronize: true,
             ssl: {
-                rejectUnauthorized: true,
+                rejectUnauthorized: false,
             },
         }),
         TypeOrmModule.forFeature([StockEntity, SaleEntity, InvoiceEntity]),
