@@ -24,7 +24,9 @@ import { TransitionModule } from './transition/transition.module';
             password: process.env.POSTGRES_PASSWORD,
             autoLoadEntities: true,
             synchronize: true,
-            ssl: false,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         }),
         TypeOrmModule.forFeature([StockEntity, SaleEntity, InvoiceEntity]),
         ProductsModule,
