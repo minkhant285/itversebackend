@@ -34,9 +34,9 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
             password: process.env.POSTGRES_PASSWORD,
             autoLoadEntities: true,
             synchronize: true,
-            // ssl: {
-            //     rejectUnauthorized: false,
-            // },
+            ssl: {
+                rejectUnauthorized: false,
+            },
         }),
         TypeOrmModule.forFeature([StockEntity, SaleEntity, InvoiceEntity]),
         ProductsModule,
