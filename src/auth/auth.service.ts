@@ -13,32 +13,20 @@ export class AuthService {
         private jwtService: JwtService,
     ) { }
 
-    async validateUser(username: string): Promise<any> {
-        console.log(username);
-        const user = await this.usersService.findOneByEmail(username);
-        return user;
-        // if (user && user.password === pass) {
-        //     const { password, ...result } = user;
-        //     return result;
-        // }
-        return null;
-    }
 
-    async login(loginUserData: UserLoginDto) {
-        const user = await this.usersService.findOneByEmail(
-            loginUserData.email,
-        );
-        if (user.password === loginUserData.password) {
+
+    async ValidateUser(email: string, password: string) {
+        const user = await this.usersService.findOneByEmail(email);
+        if (user.password === password) {
             delete user.password;
-            const jwtObj = JSON.stringify(user);
             return {
-                access_token: this.jwtService.sign(JSON.parse(jwtObj), {
-                    secret: jwtConstants.secret,
-                    expiresIn: '60s',
-                }),
+                access_token: this.jwtService.sign(
+                    JSON.parse(JSON.stringify(user)),
+                ),
             };
         } else {
-            return { status: 'not valid' };
+            return null;
         }
     }
+
 }

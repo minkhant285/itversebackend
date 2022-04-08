@@ -14,21 +14,22 @@ export class AppController {
         private authService: AuthService,
     ) { }
 
-    @UseGuards(JwtAuthGuard)
+
     @Get()
-    getHello(): string {
+    getHello(@Request() req): string {
+        console.log(req.user)
         return this.appService.getHello();
     }
 
-    // @UseGuards(LocalAuthGuard)
+    @UseGuards(LocalAuthGuard)
     @Post('auth/login')
-    async login(@Body() req: UserLoginDto): Promise<any> {
-        return await this.authService.login(req);
+    async login(@Request() req): Promise<any> {
+        return req.user;
     }
 
-    @UseGuards(LocalAuthGuard)
-    @Post('auth/register')
-    async createUser(@Request() req) {
-        return this.authService.login(req.user);
-    }
+    // @UseGuards(LocalAuthGuard)
+    // @Post('auth/register')
+    // async createUser(@Request() req) {
+    //     return this.authService.login(req.user);
+    // }
 }
