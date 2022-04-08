@@ -14,7 +14,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { UserEntity } from './user/entities/user.entity';
 
 @Module({
     imports: [
@@ -34,11 +34,16 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
             password: process.env.POSTGRES_PASSWORD,
             autoLoadEntities: true,
             synchronize: true,
-            ssl: {
-                rejectUnauthorized: false,
-            },
+            // ssl: {
+            //     rejectUnauthorized: false,
+            // },
         }),
-        TypeOrmModule.forFeature([StockEntity, SaleEntity, InvoiceEntity]),
+        TypeOrmModule.forFeature([
+            StockEntity,
+            SaleEntity,
+            InvoiceEntity,
+            UserEntity,
+        ]),
         ProductsModule,
         TransitionModule,
         UserModule,

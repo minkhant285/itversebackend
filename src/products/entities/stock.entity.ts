@@ -9,6 +9,7 @@ import {
 
 @Entity('stock')
 export class StockEntity {
+    @Index('stock-id-idx')
     @PrimaryGeneratedColumn('uuid')
     stock_id: string;
 
