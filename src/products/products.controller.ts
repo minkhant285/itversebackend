@@ -17,15 +17,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
-    @UseGuards(JwtAuthGuard)
-    @Post()
-    create(@Body() createProductDto: CreateProductDto) {
-        return this.productsService.create(createProductDto);
-    }
-
     @Get('/page/:pagenumber')
     findAll(@Param('pagenumber') pnum: number) {
-        console.log(pnum);
         return this.productsService.findAll(pnum);
     }
 
@@ -51,6 +44,12 @@ export class ProductsController {
     @Get('sku/:sku')
     findSKU(@Param('sku') sku: string) {
         return this.productsService.findBySKU(sku);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post()
+    create(@Body() createProductDto: CreateProductDto) {
+        return this.productsService.create(createProductDto);
     }
 
     @UseGuards(JwtAuthGuard)
