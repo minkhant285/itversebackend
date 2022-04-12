@@ -35,6 +35,9 @@ export class StockEntity {
     @Column({ nullable: false })
     picture: string;
 
+    @Column({ nullable: true })
+    description: string;
+
     @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
     created_at: Date;
 
