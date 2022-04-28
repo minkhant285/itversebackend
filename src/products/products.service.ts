@@ -16,7 +16,7 @@ export class ProductsService {
         return await this.stockRepository.save(createProductDto);
     }
 
-    async findAll(page = 1, take = 40): Promise<any> {
+    async findAll(page = 1, take = 30): Promise<any> {
         const d = await this.stockRepository.query(`
             select * from stock limit ${take} offset ${take * (page - 1)}
         `);
