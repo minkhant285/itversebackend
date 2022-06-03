@@ -49,15 +49,16 @@ export class ProductsService {
     }
 
     async searchProduct(searchQuery: string) {
-        const sresult =  await this.stockRepository
+        const sresult = await this.stockRepository
             .createQueryBuilder()
             .select()
-        .where('item_name ILIKE :searchQuery', {
-            searchQuery: `%${searchQuery}%`,
-        })
-        .orWhere('sku ILIKE :searchQuery', {
-            searchQuery: `%${searchQuery}%`,
-        }).getMany()
-        return sresult
+            // .where('to_tsvector(item_name) @@ to_tsquery(:searchQuery)', {searchQuery}).getMany();
+            .where('item_name ILIKE :searchQuery', {
+                searchQuery: `%${searchQuery}%`,
+            }).getMany();
+            // .orWhere('sku ILIKE :searchQuery', {
+            //     searchQuery: `%${searchQuery}%`,
+            // }).getMany()
+        return sresult;
     }
 }
