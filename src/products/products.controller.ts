@@ -18,8 +18,9 @@ export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
     @Get('/page/:pagenumber')
-    findAll(@Param('pagenumber') pnum: number) {
-        return this.productsService.findAll(pnum);
+    async findAll(@Param('pagenumber') pnum: number) {
+        const result = await this.productsService.findAll(pnum);
+        return result
     }
 
     @Get()

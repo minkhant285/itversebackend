@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
+import { ProductDto } from './dto/product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { StockEntity } from './entities/stock.entity';
 
@@ -16,11 +17,11 @@ export class ProductsService {
         return await this.stockRepository.save(createProductDto);
     }
 
-    async findAll(page = 1, take = 30): Promise<any> {
-        const d = await this.stockRepository.query(`
-            select * from stock limit ${take} offset ${take * (page - 1)}
-        `);
-        return d;
+    async findAll(page = 1, take = 30): Promise<ProductDto[]> {
+        return await this.stockRepository.find({
+            take:take,
+            skip:take * (page - 1)
+        });
     }
 
     async countAll(): Promise<number> {

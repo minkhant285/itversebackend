@@ -26,7 +26,7 @@ export class StockEntity {
     @Column({ type: 'real', nullable: false })
     unit_price: string;
 
-    @Column({ type: 'real', nullable: false })
+    @Column({ type: 'real', nullable: false, select:false })
     buy_price: number;
 
     @Column({ nullable: false })
