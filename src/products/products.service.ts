@@ -17,10 +17,11 @@ export class ProductsService {
         return await this.stockRepository.save(createProductDto);
     }
 
-    async findAll(page = 1, take = 30): Promise<ProductDto[]> {
+    async findAll(): Promise<any[]> {
         return await this.stockRepository.find({
-            take:take,
-            skip:take * (page - 1)
+            relations: [
+                'category', 'uom'
+            ]
         });
     }
 
@@ -54,12 +55,12 @@ export class ProductsService {
             .createQueryBuilder()
             .select()
             // .where('to_tsvector(item_name) @@ to_tsquery(:searchQuery)', {searchQuery}).getMany();
-            .where('item_name ILIKE :searchQuery', {
+            .where('name ILIKE :searchQuery', {
                 searchQuery: `%${searchQuery}%`,
             }).getMany();
-            // .orWhere('sku ILIKE :searchQuery', {
-            //     searchQuery: `%${searchQuery}%`,
-            // }).getMany()
+        // .orWhere('sku ILIKE :searchQuery', {
+        //     searchQuery: `%${searchQuery}%`,
+        // }).getMany()
         return sresult;
     }
 }

@@ -1,12 +1,14 @@
 export class ProductDto {
-    stock_id: string;
+    id: string;
     sku: string;
-    item_name: string;
-    unit_in_stock: number;
-    unit_price: string;
-    category_id: number;
-    picture: string;
+    name: string;
+    remaining_stock: number;
+    purchase_price: number;
+    sale_price: string;
+    photo?: Buffer;
     description: string;
+    category: string;
+    uom: string;
     created_at: Date;
     updated_at: Date;
 }

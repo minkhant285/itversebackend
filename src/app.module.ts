@@ -5,16 +5,22 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { InvoiceEntity } from './products/entities/invoice.entity';
-import { SaleEntity } from './products/entities/sale.entity';
-import { StockEntity } from './products/entities/stock.entity';
 import { ProductsModule } from './products/products.module';
 import { TransitionModule } from './transition/transition.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
+import { StockEntity } from './products/entities/stock.entity';
+import { CategoryEntity } from './products/entities/stockcategory.entity';
+import { UOMEntity } from './products/entities/uom.entity';
 import { UserEntity } from './user/entities/user.entity';
+import { UomModule } from './uom/uom.module';
+import { CategoryModule } from './category/category.module';
+import { CustomerModule } from './customer/customer.module';
+import { CustomerEntity } from './customer/entities/customer.entity';
+import { PackageModule } from './package/package.module';
+import { PackageEntity } from './package/entities/package.entity';
 
 @Module({
     imports: [
@@ -40,14 +46,23 @@ import { UserEntity } from './user/entities/user.entity';
         }),
         TypeOrmModule.forFeature([
             StockEntity,
-            SaleEntity,
-            InvoiceEntity,
+            CategoryEntity,
             UserEntity,
+            UOMEntity,
+            CustomerEntity,
+            PackageEntity
+            // StockEntity,
+            // SaleEntity,
+            // InvoiceEntity,
         ]),
         ProductsModule,
-        TransitionModule,
+        // TransitionModule,
         UserModule,
         AuthModule,
+        UomModule,
+        CategoryModule,
+        CustomerModule,
+        PackageModule,
     ],
     controllers: [AppController],
     providers: [AppService, AuthService, UserService],

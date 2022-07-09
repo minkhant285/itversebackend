@@ -19,7 +19,7 @@ export class ProductsController {
 
     @Get('/page/:pagenumber')
     async findAll(@Param('pagenumber') pnum: number) {
-        const result = await this.productsService.findAll(pnum);
+        const result = await this.productsService.findAll();
         return result
     }
 
@@ -47,13 +47,13 @@ export class ProductsController {
         return this.productsService.findBySKU(sku);
     }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Post()
     create(@Body() createProductDto: CreateProductDto) {
         return this.productsService.create(createProductDto);
     }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Patch(':id')
     update(
         @Param('id') id: string,
@@ -62,7 +62,7 @@ export class ProductsController {
         return this.productsService.update(id, updateProductDto);
     }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.productsService.remove(id);
