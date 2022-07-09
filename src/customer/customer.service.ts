@@ -19,15 +19,20 @@ export class CustomerService {
     }
 
     async findAll() {
-        return await this.customerRepository.find({ relations: ['packages'] });
+        return await this.customerRepository.find({ relations: ['packages', 'fav_items'] });
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} customer`;
+    findOne(id: string) {
+        return this.customerRepository.find({
+            where: {
+                id
+            }, relations: ['packages', 'fav_items']
+        })
     }
 
-    update(id: number, updateCustomerDto: UpdateCustomerDto) {
-        return `This action updates a #${id} customer`;
+    async update(id: string, updateCustomerDto: UpdateCustomerDto) {
+        updateCustomerDto["id"] = id
+        return await this.customerRepository.save(updateCustomerDto)
     }
 
     async remove(id: string) {

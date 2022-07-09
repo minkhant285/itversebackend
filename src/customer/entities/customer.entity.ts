@@ -47,14 +47,14 @@ export class CustomerEntity {
     password: string;
 
     @ManyToMany(() => PackageEntity, (p) => p.customers, {
-        cascade: true
+        cascade: true, onUpdate: 'CASCADE'
     })
     @JoinTable()
     packages: PackageEntity[];
 
-    @OneToMany(() => StockEntity, (stock) => stock.id)
-    // @JoinColumn({ name: 'stock' })
-    stock: StockEntity[];
+    @ManyToMany(() => StockEntity, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+    @JoinTable()
+    fav_items: StockEntity[];
 
     @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
     created_at: Date;

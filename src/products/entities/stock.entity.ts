@@ -8,9 +8,11 @@ import {
     ManyToOne,
     JoinColumn,
     DeleteDateColumn,
+    ManyToMany,
 } from 'typeorm';
 import { UOMEntity } from './uom.entity';
 import { CategoryEntity } from './stockcategory.entity';
+import { CustomerEntity } from 'src/customer/entities/customer.entity';
 
 @Entity('stock')
 export class StockEntity {
@@ -51,6 +53,10 @@ export class StockEntity {
     // @ManyToMany(() => ArticleEntity, (article: { id: string }) => article.id)
     // @JoinColumn({ name: 'article' })
     // articles: ArticleEntity[];
+
+
+    // @ManyToMany(() => CustomerEntity)
+    // customers: CustomerEntity[];
 
     @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
     created_at: Date;

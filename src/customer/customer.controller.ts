@@ -19,12 +19,12 @@ export class CustomerController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.customerService.findOne(+id);
+        return this.customerService.findOne(id);
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-        return this.customerService.update(+id, updateCustomerDto);
+        return this.customerService.update(id, updateCustomerDto);
     }
 
     @Delete(':id')
