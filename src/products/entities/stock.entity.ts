@@ -13,6 +13,7 @@ import {
 import { UOMEntity } from './uom.entity';
 import { CategoryEntity } from './stockcategory.entity';
 import { CustomerEntity } from 'src/customer/entities/customer.entity';
+import { SaleEntity } from 'src/sale/entities/sale.entity';
 
 @Entity('stock')
 export class StockEntity {

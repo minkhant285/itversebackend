@@ -16,47 +16,28 @@ import {
 import { PackageEntity } from '../../package/entities/package.entity';
 import { StockEntity } from '../../products/entities/stock.entity';
 
-@Entity('customer')
-export class CustomerEntity {
+@Entity('payment')
+export class PaymentEntity {
 
-    @Index('customer-id-idx')
+    @Index('payment-id-idx')
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column({ nullable: false })
     name: string;
 
-    // @Column({ nullable: true })
-    // address: string;
+    @Column({ nullable: false })
+    phone_number: string;
 
-    // @Column({ nullable: true })
-    // email: string;
+    @Column({ type: "bytea", nullable: true })
+    photo: Buffer;
 
-    // @Column({ nullable: true })
-    // phone: string;
-
-    // @Column({ nullable: true })
-    // acctype: string;
-
-    @Column()
-    level: string;
+    @Column({ nullable: false })
+    type: string;
 
     @OneToMany(() => VoucherEntity, (v) => v.id)
-    @JoinColumn()
+    @JoinColumn({ name: 'vouchers' })
     vouchers: VoucherEntity[];
-
-    @Column({ nullable: true })
-    password: string;
-
-    @ManyToMany(() => PackageEntity, (p) => p.customers, {
-        cascade: true, onUpdate: 'CASCADE'
-    })
-    @JoinTable()
-    packages: PackageEntity[];
-
-    @ManyToMany(() => StockEntity, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
-    @JoinTable()
-    fav_items: StockEntity[];
 
     @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
     created_at: Date;

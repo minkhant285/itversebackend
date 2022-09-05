@@ -6,7 +6,6 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
-import { TransitionModule } from './transition/transition.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
@@ -21,6 +20,12 @@ import { CustomerModule } from './customer/customer.module';
 import { CustomerEntity } from './customer/entities/customer.entity';
 import { PackageModule } from './package/package.module';
 import { PackageEntity } from './package/entities/package.entity';
+import { VoucherModule } from './voucher/voucher.module';
+import { SaleModule } from './sale/sale.module';
+import { PaymentModule } from './payment/payment.module';
+import { SaleEntity } from './sale/entities/sale.entity';
+import { VoucherEntity } from './voucher/entities/voucher.entity';
+import { PaymentEntity } from './payment/entities/payment.entity';
 
 @Module({
     imports: [
@@ -40,9 +45,6 @@ import { PackageEntity } from './package/entities/package.entity';
             password: process.env.POSTGRES_PASSWORD,
             autoLoadEntities: true,
             synchronize: true,
-            // ssl: {
-            //     rejectUnauthorized: false,
-            // },
         }),
         TypeOrmModule.forFeature([
             StockEntity,
@@ -50,19 +52,21 @@ import { PackageEntity } from './package/entities/package.entity';
             UserEntity,
             UOMEntity,
             CustomerEntity,
-            PackageEntity
-            // StockEntity,
-            // SaleEntity,
-            // InvoiceEntity,
+            PackageEntity,
+            SaleEntity,
+            VoucherEntity,
+            PaymentEntity
         ]),
         ProductsModule,
-        // TransitionModule,
         UserModule,
         AuthModule,
         UomModule,
         CategoryModule,
         CustomerModule,
         PackageModule,
+        VoucherModule,
+        SaleModule,
+        PaymentModule,
     ],
     controllers: [AppController],
     providers: [AppService, AuthService, UserService],
