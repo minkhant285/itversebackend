@@ -10,7 +10,7 @@ import {
     DeleteDateColumn,
     ManyToMany,
 } from 'typeorm';
-import { UOMEntity } from './uom.entity';
+import { UOMEntity } from '../../uom/entities/uom.entity';
 import { CategoryEntity } from './stockcategory.entity';
 import { CustomerEntity } from 'src/customer/entities/customer.entity';
 import { SaleEntity } from 'src/sale/entities/sale.entity';
@@ -31,14 +31,14 @@ export class StockEntity {
     @Column({ nullable: false })
     remaining_stock: number;
 
-    @Column({ type: 'real', nullable: false, select: false })
+    @Column({ type: 'real', nullable: false, select: true })
     purchase_price: number;
 
     @Column({ type: 'real', nullable: false })
     sale_price: string;
 
-    @Column({ type: "bytea", nullable: true })
-    photo: Buffer;
+    @Column({ nullable: true })
+    photo: string;
 
     @Column({ nullable: true })
     description: string;

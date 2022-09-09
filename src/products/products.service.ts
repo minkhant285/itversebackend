@@ -30,7 +30,7 @@ export class ProductsService {
     }
 
     async findOne(id: string): Promise<any> {
-        return await this.stockRepository.findOne(id);
+        return await this.stockRepository.findOne(id, { relations: ['uom', 'category'] });
     }
 
     async findBySKU(sku: string): Promise<any> {
@@ -43,7 +43,18 @@ export class ProductsService {
     }
 
     async update(id: string, updateProductDto: UpdateProductDto) {
-        return await this.stockRepository.update(id, updateProductDto);
+        console.log(id, updateProductDto)
+        return await this.stockRepository.update(id, {
+            sku: updateProductDto.sku,
+            name: updateProductDto.name,
+            remaining_stock: updateProductDto.remaining_stock,
+            purchase_price: updateProductDto.purchase_price,
+            sale_price: updateProductDto.sale_price,
+            photo: updateProductDto.photo,
+            description: updateProductDto.description,
+            category: updateProductDto.category,
+            uom: updateProductDto.uom
+        });
     }
 
     async remove(id: string) {

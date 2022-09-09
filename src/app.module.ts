@@ -12,7 +12,7 @@ import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
 import { StockEntity } from './products/entities/stock.entity';
 import { CategoryEntity } from './products/entities/stockcategory.entity';
-import { UOMEntity } from './products/entities/uom.entity';
+import { UOMEntity } from './uom/entities/uom.entity';
 import { UserEntity } from './user/entities/user.entity';
 import { UomModule } from './uom/uom.module';
 import { CategoryModule } from './category/category.module';
@@ -34,7 +34,7 @@ import { PaymentEntity } from './payment/entities/payment.entity';
             isGlobal: true,
         }),
         ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '../src', 'assets/img/itverse_photos'),
+            rootPath: join(__dirname, '../product_photos', 'files'),
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
@@ -46,6 +46,7 @@ import { PaymentEntity } from './payment/entities/payment.entity';
             autoLoadEntities: true,
             synchronize: true,
         }),
+
         TypeOrmModule.forFeature([
             StockEntity,
             CategoryEntity,

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UOMEntity } from 'src/products/entities/uom.entity';
+import { UOMEntity } from 'src/uom/entities/uom.entity';
 import { Repository } from 'typeorm';
 import { CreateUomDto } from './dto/create-uom.dto';
 import { UpdateUomDto } from './dto/update-uom.dto';
@@ -32,7 +32,7 @@ export class UomService {
         return `This action updates a #${id} uom`;
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} uom`;
+    async remove(id: string) {
+        return await this.uomRepository.softDelete(id);
     }
 }
