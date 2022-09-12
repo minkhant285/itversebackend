@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, Repository } from 'typeorm';
+import { Category } from 'src/category/entities/category.entity';
+import { getConnection, ILike, Like, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductDto } from './dto/product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -18,6 +19,14 @@ export class ProductsService {
     }
 
     async findAll(): Promise<any[]> {
+        return await this.stockRepository.find({
+            relations: [
+                'category', 'uom'
+            ]
+        });
+    }
+
+    async getPage(): Promise<any[]> {
         return await this.stockRepository.find({
             relations: [
                 'category', 'uom'
@@ -62,16 +71,11 @@ export class ProductsService {
     }
 
     async searchProduct(searchQuery: string) {
-        const sresult = await this.stockRepository
-            .createQueryBuilder()
-            .select()
-            // .where('to_tsvector(item_name) @@ to_tsquery(:searchQuery)', {searchQuery}).getMany();
-            .where('name ILIKE :searchQuery', {
-                searchQuery: `%${searchQuery}%`,
-            }).getMany();
-        // .orWhere('sku ILIKE :searchQuery', {
-        //     searchQuery: `%${searchQuery}%`,
-        // }).getMany()
+        const sresult = await this.stockRepository.find({
+            where: {
+                name: ILike(`%${searchQuery}%`)
+            }, relations: ['category', 'uom']
+        })
         return sresult;
     }
 }

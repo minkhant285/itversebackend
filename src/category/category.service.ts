@@ -20,7 +20,7 @@ export class CategoryService {
     async findAll() {
         return await this.categoryRepository.find({
             relations: [
-                'stock'
+                'stock', 'stock.category', 'stock.uom'
             ]
         });
     }

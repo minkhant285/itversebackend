@@ -22,9 +22,15 @@ import { extname } from 'path';
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
-    @Get('/page/:pagenumber')
-    async findAll(@Param('pagenumber') pnum: number) {
+    @Get()
+    async findAll() {
         const result = await this.productsService.findAll();
+        return result
+    }
+
+    @Get('/page/:pagenumber')
+    async getPage(@Param('pagenumber') pnum: number) {
+        const result = await this.productsService.getPage();
         return result
     }
 
