@@ -20,23 +20,26 @@ export class SaleService {
 
     async create(createSaleDto: CreateSaleDto) {
 
-        createSaleDto['voucher'] = await this.voucherService.create({
-            customer: { id: "785d46a3-02a6-463e-97d0-0cc29b592cbb" },
-            discount: 1,
-            status: 'not ready',
-            delivery_fee: 2500,
-            payment_methods: {},
-            sale: []
-        })
-        return await this.saleRepository.save(createSaleDto);
+        // createSaleDto['voucher'] = await this.voucherService.create({
+        //     customer: { id: "785d46a3-02a6-463e-97d0-0cc29b592cbb" },
+        //     discount: 1,
+        //     status: 'not ready',
+        //     delivery_fee: 2500,
+        //     payment_methods: {},
+        //     sale: []
+        // })
+        console.log(createSaleDto.customer)
+        // return 'g';
+        let datag: CreateSaleDto = { customer: createSaleDto.customer, saleDetails: createSaleDto.saleDetails };
+        return await this.saleRepository.save(datag);
     }
 
     async findAll() {
-        return await this.saleRepository.find({ loadRelationIds: true });
+        return await this.saleRepository.find({ relations: ['customer'] });
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} sale`;
+    async findOne(id: string) {
+        return await this.saleRepository.findOne(id, { relations: ['customer'] });
     }
 
     update(id: number, updateSaleDto: UpdateSaleDto) {

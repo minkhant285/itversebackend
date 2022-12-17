@@ -3,10 +3,10 @@ export class CreateCustomerDto {
     address?: string;
     email?: string;
     phone?: string;
-    acctype?: string;
-    level: string;
-    transitions?: string;
     password?: string;
+    acctype?: string;
+    level?: string;
+    transitions?: string;
     favourite?: any;
     packages?: any;
 }

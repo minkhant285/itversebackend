@@ -1,6 +1,6 @@
+import { ProductDto } from "src/products/dto/product.dto";
+
 export class SaleDto {
-    stockid: string;
-    qty: string;
-    amount: string;
-    voucher: string;
+    stock: ProductDto;
+    qty: number;
 }

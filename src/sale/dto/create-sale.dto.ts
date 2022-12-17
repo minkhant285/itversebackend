@@ -1,6 +1,7 @@
+import { CustomerDto } from "src/customer/dto/customer.dto";
+import { SaleDto } from "./sale.dto";
+
 export class CreateSaleDto {
-    stocks: any;
-    qty: number;
-    amount: number;
-    voucher?: any;
+    customer: any;
+    saleDetails: SaleDto[];
 }

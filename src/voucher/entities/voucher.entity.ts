@@ -30,9 +30,9 @@ export class VoucherEntity {
     status: string;
 
 
-    @OneToMany(() => SaleEntity, (sale) => sale.voucher)
-    @JoinColumn({ name: 'sale' })
-    sale: SaleEntity[]
+    // @OneToMany(() => SaleEntity, (sale) => sale.voucher)
+    // @JoinColumn({ name: 'sale' })
+    // sale: SaleEntity[]
 
 
     @ManyToOne(() => CustomerEntity, (cname) => cname.id)

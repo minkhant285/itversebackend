@@ -1,3 +1,4 @@
+import { CustomerEntity } from 'src/customer/entities/customer.entity';
 import { StockEntity } from 'src/products/entities/stock.entity';
 import { VoucherEntity } from 'src/voucher/entities/voucher.entity';
 import {
@@ -15,6 +16,7 @@ import {
     PrimaryGeneratedColumn,
     OneToOne,
 } from 'typeorm';
+import { SaleDto } from '../dto/sale.dto';
 
 
 
@@ -24,19 +26,9 @@ export class SaleEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'real' })
-    qty: number;
-
-    @Column({ type: 'real' })
-    amount: number;
-
-    @OneToOne(() => StockEntity, (stock) => stock.id)
-    @JoinColumn({ name: 'stock' })
-    stock: StockEntity;
-
-    @ManyToOne(() => VoucherEntity, (v) => v.sale)
-    @JoinColumn({ name: 'voucher' })
-    voucher: VoucherEntity;
+    @ManyToOne(() => CustomerEntity, (customer) => customer.id)
+    @JoinColumn({ name: 'customer_id' })
+    customer: CustomerEntity;
 
     @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
     created_at: Date;
@@ -46,4 +38,7 @@ export class SaleEntity {
 
     @DeleteDateColumn()
     deleted_at?: Date;
+
+    @Column({ type: 'jsonb', nullable: true })
+    saleDetails: SaleDto[];
 }

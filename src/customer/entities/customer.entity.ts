@@ -1,3 +1,4 @@
+import { SaleEntity } from 'src/sale/entities/sale.entity';
 import { VoucherEntity } from 'src/voucher/entities/voucher.entity';
 import {
     Entity,
@@ -12,6 +13,7 @@ import {
     ManyToOne,
     ManyToMany,
     JoinTable,
+    OneToOne,
 } from 'typeorm';
 import { PackageEntity } from '../../package/entities/package.entity';
 import { StockEntity } from '../../products/entities/stock.entity';
@@ -39,24 +41,29 @@ export class CustomerEntity {
     // acctype: string;
 
     @Column()
-    level: string;
+    level?: string;
 
-    @OneToMany(() => VoucherEntity, (v) => v.id)
-    @JoinColumn()
-    vouchers: VoucherEntity[];
+    // @OneToMany(() => VoucherEntity, (v) => v.id)
+    // @JoinColumn()
+    // vouchers: VoucherEntity[];
+
+
 
     @Column({ nullable: true })
-    password: string;
+    password?: string;
 
     @ManyToMany(() => PackageEntity, (p) => p.customers, {
         cascade: true, onUpdate: 'CASCADE'
     })
     @JoinTable()
-    packages: PackageEntity[];
+    packages?: PackageEntity[];
+
+    @OneToMany(() => SaleEntity, (sale) => sale.customer)
+    sale: SaleEntity[];
 
     @ManyToMany(() => StockEntity, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinTable()
-    fav_items: StockEntity[];
+    fav_items?: StockEntity[];
 
     @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
     created_at: Date;
