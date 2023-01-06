@@ -9,11 +9,13 @@ import {
     JoinColumn,
     DeleteDateColumn,
     ManyToMany,
+    OneToMany,
 } from 'typeorm';
 import { UOMEntity } from '../../uom/entities/uom.entity';
 import { CategoryEntity } from './stockcategory.entity';
 import { CustomerEntity } from 'src/customer/entities/customer.entity';
 import { SaleEntity } from 'src/sale/entities/sale.entity';
+import { VoucherDetailEntity } from 'src/voucher/entities/voucherdetail.entity';
 
 @Entity('stock')
 export class StockEntity {
@@ -50,6 +52,9 @@ export class StockEntity {
     @ManyToOne(() => UOMEntity, (uom: { id: string }) => uom.id)
     @JoinColumn({ name: 'uomid' })
     uom: UOMEntity;
+
+    @OneToMany(() => VoucherDetailEntity, (vd) => vd.id)
+    voucher_details: VoucherDetailEntity[];
 
     // @ManyToMany(() => ArticleEntity, (article: { id: string }) => article.id)
     // @JoinColumn({ name: 'article' })

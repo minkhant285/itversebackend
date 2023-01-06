@@ -15,6 +15,7 @@ import {
     JoinTable,
 } from 'typeorm';
 import { CustomerEntity } from '../../customer/entities/customer.entity';
+import { VoucherDetailEntity } from './voucherdetail.entity';
 
 @Entity('voucher')
 export class VoucherEntity {
@@ -29,10 +30,14 @@ export class VoucherEntity {
     @Column({ nullable: false })
     status: string;
 
+    @Column({ nullable: true })
+    delivery_fee: number;
 
-    // @OneToMany(() => SaleEntity, (sale) => sale.voucher)
-    // @JoinColumn({ name: 'sale' })
-    // sale: SaleEntity[]
+    @Column({ nullable: true })
+    delivery_method: string;
+
+    @OneToMany(() => VoucherDetailEntity, (vd) => vd.voucher)
+    voucherDetails: VoucherDetailEntity[]
 
 
     @ManyToOne(() => CustomerEntity, (cname) => cname.id)

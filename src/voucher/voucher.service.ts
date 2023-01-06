@@ -15,22 +15,23 @@ export class VoucherService {
 
 
     async create(createVoucherDto: CreateVoucherDto) {
-        return await this.voucherRepository.save(createVoucherDto);
+        const savedVoucher = await this.voucherRepository.save(createVoucherDto);
+        return savedVoucher.id;
     }
 
     async findAll() {
-        return await this.voucherRepository.find({ relations: ['sale'] });
+        return await this.voucherRepository.find({ relations: ['voucherDetails', 'voucherDetails.stock', 'customer'] });
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} voucher`;
+    async findOne(id: string) {
+        return await this.voucherRepository.findOne(id, { relations: ['voucherDetails', 'voucherDetails.stock', 'customer'] });
     }
 
-    update(id: number, updateVoucherDto: UpdateVoucherDto) {
-        return `This action updates a #${id} voucher`;
+    async update(id: string, updateVoucherDto: UpdateVoucherDto) {
+        return await this.voucherRepository.update(id, updateVoucherDto);
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} voucher`;
+    async remove(id: string) {
+        return await this.voucherRepository.delete(id);
     }
 }

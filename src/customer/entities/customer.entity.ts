@@ -28,24 +28,24 @@ export class CustomerEntity {
     @Column({ nullable: false })
     name: string;
 
-    // @Column({ nullable: true })
-    // address: string;
+    @Column({ nullable: true })
+    address: string;
 
     // @Column({ nullable: true })
     // email: string;
 
-    // @Column({ nullable: true })
-    // phone: string;
+    @Column({ nullable: true })
+    phone: string;
 
     // @Column({ nullable: true })
     // acctype: string;
 
-    @Column()
+    @Column({ nullable: true })
     level?: string;
 
-    // @OneToMany(() => VoucherEntity, (v) => v.id)
-    // @JoinColumn()
-    // vouchers: VoucherEntity[];
+    @OneToMany(() => VoucherEntity, (v) => v.id)
+    @JoinColumn()
+    vouchers: VoucherEntity[];
 
 
 
