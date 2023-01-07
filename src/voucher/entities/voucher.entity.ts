@@ -40,7 +40,7 @@ export class VoucherEntity {
     voucherDetails: VoucherDetailEntity[]
 
 
-    @ManyToOne(() => CustomerEntity, (cname) => cname.id)
+    @ManyToOne(() => CustomerEntity, (cname) => cname.vouchers)
     @JoinColumn()
     customer: CustomerEntity;
 

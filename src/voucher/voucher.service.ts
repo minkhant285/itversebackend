@@ -16,7 +16,7 @@ export class VoucherService {
 
     async create(createVoucherDto: CreateVoucherDto) {
         const savedVoucher = await this.voucherRepository.save(createVoucherDto);
-        return savedVoucher.id;
+        return savedVoucher;
     }
 
     async findAll() {

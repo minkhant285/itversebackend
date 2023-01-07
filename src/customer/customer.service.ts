@@ -19,14 +19,14 @@ export class CustomerService {
     }
 
     async findAll() {
-        return await this.customerRepository.find({ relations: ['packages', 'fav_items', 'sale'] });
+        return await this.customerRepository.find({ relations: ['packages', 'fav_items', 'vouchers'] });
     }
 
     findOne(id: string) {
         return this.customerRepository.find({
             where: {
                 id
-            }, relations: ['packages', 'fav_items', 'sale']
+            }, relations: ['packages', 'fav_items', 'vouchers']
         })
     }
 

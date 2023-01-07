@@ -43,8 +43,7 @@ export class CustomerEntity {
     @Column({ nullable: true })
     level?: string;
 
-    @OneToMany(() => VoucherEntity, (v) => v.id)
-    @JoinColumn()
+    @OneToMany(() => VoucherEntity, (v) => v.customer)
     vouchers: VoucherEntity[];
 
 
@@ -58,8 +57,8 @@ export class CustomerEntity {
     @JoinTable()
     packages?: PackageEntity[];
 
-    @OneToMany(() => SaleEntity, (sale) => sale.customer)
-    sale: SaleEntity[];
+    // @OneToMany(() => SaleEntity, (sale) => sale.customer)
+    // sale: SaleEntity[];
 
     @ManyToMany(() => StockEntity, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinTable()

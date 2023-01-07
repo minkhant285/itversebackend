@@ -19,7 +19,8 @@ export class VoucherDetailService {
     }
 
     async create(voucherDetail: CreateVoucherDeatailDto) {
-        return await this.voucherDetailRepository.save(voucherDetail);
+        const created = await this.voucherDetailRepository.save(voucherDetail);
+        return created;
     }
 
 }
